@@ -41,7 +41,7 @@ def _print_info(interval, number):
         * displaying %s, since (around) %s
         * 2021-05-23 is 2021-05-23 00:00:00
         * high, low and close are almost never final
-    """ % (total, since.strftime("%Y-%m-%d")))[1:-1]
+    """ % (total, since.strftime("%b %d, %Y")))[1:-1]
     print(msg)
 
 
