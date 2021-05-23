@@ -113,9 +113,10 @@ def _make_intristic(price):
 
 
 def _make_labels(index):
+    step = len(index) // 10
     return reversed([
         timestamp.strftime("%Y-%m-%d")
-        if i % 4 == 0
+        if i % step == 0
         else ""
         for i, timestamp in enumerate(reversed(index))
     ])
