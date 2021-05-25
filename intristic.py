@@ -124,6 +124,13 @@ def _make_labels(index):
 
 class _Parser(argparse.ArgumentParser):
 
+    # Implement it as a metaclass - get rid of appending ", default %s"
+    # to every help message
+    _defaults_ = dict(
+        interval="1d",
+        tail=50,
+    )
+
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("description", __doc__)
         super().__init__(*args, **kwargs)
@@ -132,14 +139,17 @@ class _Parser(argparse.ArgumentParser):
         self.add_argument("symbol", help="like ETHUSDT")
         self.add_argument(
             "-i", "--interval",
-            default="1d",
-            help="1d, 3d, 1w, etc.",
+            default=self._defaults_["interval"],
+            help="1d, 3d, 1w, etc., default %s" % self._defaults_["interval"],
         )
         self.add_argument(
             "-t", "--tail",
             type=int,
-            default=50,
-            help="intervals to ask for, max 1000",
+            default=self._defaults_["tail"],
+            help=(
+                "intervals to ask for, max 1000, default %s"
+                % self._defaults_["tail"]
+            ),
         )
         return self
 
